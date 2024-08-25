@@ -1,8 +1,11 @@
+import { useReducer } from "react"
 import BudgetForm from "./components/BudgetForm"
+import { budgetReducer, initialState } from "./reducer/budget-reducer"
 
 
 function App() {
 
+  const [state, dispatch] = useReducer(budgetReducer, initialState)
 
   return (
     <>
@@ -11,7 +14,9 @@ function App() {
       </header>
 
       <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-lg mt-10 p-10">
-        <BudgetForm />
+        <BudgetForm
+          dispatch={dispatch}
+        />
       </div>
     </>
   )

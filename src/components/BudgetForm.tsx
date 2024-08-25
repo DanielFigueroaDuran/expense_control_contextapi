@@ -1,9 +1,12 @@
-import { ChangeEvent, useMemo, useState } from "react"
+import { ChangeEvent, Dispatch, useMemo, useState } from "react"
+import { BudgetActions } from "../reducer/budget-reducer";
 
 
-type Props = {}
+type BudgetFormProps = {
+      dispatch: Dispatch<BudgetActions>
+}
 
-const BudgetForm = (props: Props) => {
+const BudgetForm = ({ dispatch }: BudgetFormProps) => {
 
       const [budget, setBudget] = useState(0);
 
