@@ -1,14 +1,10 @@
-import { ChangeEvent, Dispatch, useMemo, useState } from "react"
-import { BudgetActions } from "../reducer/budget-reducer";
+import { ChangeEvent, FormEvent, useMemo, useState } from "react"
+import useBudget from "../hooks/useBudget";
 
-
-type BudgetFormProps = {
-      dispatch: Dispatch<BudgetActions>
-}
-
-const BudgetForm = ({ dispatch }: BudgetFormProps) => {
+const BudgetForm = () => {
 
       const [budget, setBudget] = useState(0);
+      const { dispatch } = useBudget();
 
       const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
             setBudget(+event.target.value);
@@ -18,8 +14,14 @@ const BudgetForm = ({ dispatch }: BudgetFormProps) => {
             return isNaN(budget) || budget <= 0
       }, [budget])
 
+      const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+            event.preventDefault();
+
+            dispatch({ type: 'add-budget', payload: { budget } });
+      }
+
       return (
-            <form className="space-y-5">
+            <form className="space-y-5" onSubmit={handleSubmit}>
                   <div className="flex flex-col space-y-5">
                         <label
                               htmlFor="budget"
