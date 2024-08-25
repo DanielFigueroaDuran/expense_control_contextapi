@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, useMemo, useState } from "react"
 
 
 type Props = {}
@@ -10,6 +10,10 @@ const BudgetForm = (props: Props) => {
       const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
             setBudget(+event.target.value);
       }
+
+      const isValid = useMemo(() => {
+            return isNaN(budget) || budget <= 0
+      }, [budget])
 
       return (
             <form className="space-y-5">
@@ -33,9 +37,11 @@ const BudgetForm = (props: Props) => {
                   </div>
 
                   <input
-                        className="bg-blue-600 hover:bg-blue-700 cursor-pointer w-full p-2 text-white font-black uppercase"
+                        className="bg-blue-600 hover:bg-blue-700 cursor-pointer w-full p-2 text-white font-black uppercase disabled:opacity-40"
                         type="submit"
                         value="Definir Presupuesto"
+                        disabled={isValid}
+
                   />
             </form>
       )
