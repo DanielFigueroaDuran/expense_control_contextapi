@@ -2,12 +2,19 @@ import { categories } from "../data/categories"
 import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
+import { useState } from "react";
+import { DrafExpense } from "../types";
 
-type ValuePiece = Date | null;
-
-type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const ExpenseForm = () => {
+
+      const [expense, setExpense] = useState<DrafExpense>({
+            amount: 0,
+            expenseName: '',
+            category: '',
+            date: new Date()
+      });
+
       return (
             <form className="space-y-5">
                   <legend
@@ -28,6 +35,7 @@ const ExpenseForm = () => {
                               id="expenseName"
                               placeholder="Añade el Nombre del Gasto"
                               name="expenseName"
+                              value={expense.expenseName}
                         />
                   </div>
 
@@ -44,6 +52,7 @@ const ExpenseForm = () => {
                               id="amount"
                               placeholder="Añade la cantidad del Gasto: Ej. 300"
                               name="amount"
+                              value={expense.amount}
                         />
                   </div>
 
@@ -58,6 +67,7 @@ const ExpenseForm = () => {
                               className="bg-slate-100 p-2"
                               id="category"
                               name="category"
+                              value={expense.category}
                         >
                               <option value="">--Seleccione--</option>
                               {categories.map(category => (
@@ -79,13 +89,14 @@ const ExpenseForm = () => {
                         </label>
                         <DatePicker
                               className="bg-slate-100 p-2 border-0"
+                              value={expense.date}
                         />
                   </div>
 
                   <input
                         className="bg-blue-600 hover:bg-blue-700 cursor-pointer w-full p-2 text-white uppercase font-bold rounded-lg "
                         type="submit"
-                        value={'REgistrar Gasto'}
+                        value={'Registrar Gasto'}
                   />
             </form>
       )
