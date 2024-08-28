@@ -23,7 +23,7 @@ function App() {
 
       {
         isValidBudget && (
-          <main className="max-w3xl mx-auto py-10">
+          <main className="max-w-3xl mx-auto py-10">
             <ExpenseList />
             <ExpenseModal />
           </main>
