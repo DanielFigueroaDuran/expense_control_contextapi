@@ -9,7 +9,7 @@ const ExpenseList = () => {
       const isEmty = useMemo(() => state.expenses.length === 0, [state.expenses]);
       //console.log(state)
       return (
-            <div className="mt-10 space-y-5">
+            <div className="mt-10">
                   {isEmty
                         ? <p className="text-gray-600 text-2xl font-bold">
                               No Hay Gasto
