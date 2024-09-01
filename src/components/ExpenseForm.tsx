@@ -2,7 +2,7 @@ import { categories } from "../data/categories"
 import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { DrafExpense, Value } from "../types";
 import ErrorMessage from "./ErrorMessage";
 import useBudget from "../hooks/useBudget";
@@ -18,7 +18,14 @@ const ExpenseForm = () => {
       });
 
       const [error, setError] = useState('');
-      const { dispatch } = useBudget();
+      const { state, dispatch } = useBudget();
+
+      useEffect(() => {
+            if (state.editingId) {
+                  const editingExpense = state.expenses.filter(currenExpense => currenExpense.id === state.editingId)[0];
+                  setExpense(editingExpense);
+            }
+      }, [state.editingId]);
 
 
       const handleCahngeDate = (value: Value) => {
@@ -49,9 +56,15 @@ const ExpenseForm = () => {
                   return
             }
 
-            //add a new expense
+            //add or update the expense
 
-            dispatch({ type: 'add-expense', payload: { expense } })
+            if (state.editingId) {
+                  dispatch({ type: 'update-expense', payload: { expense: { id: state.editingId, ...expense } } });
+            } else {
+            }
+            dispatch({ type: 'add-expense', payload: { expense } });
+
+
 
             // Reset state
 
@@ -86,8 +99,8 @@ const ExpenseForm = () => {
                               id="expenseName"
                               placeholder="Añade el Nombre del Gasto"
                               name="expenseName"
-                              value={expense.expenseName}
                               onChange={handleChange}
+                              value={expense.expenseName}
                         />
                   </div>
 
@@ -104,8 +117,8 @@ const ExpenseForm = () => {
                               id="amount"
                               placeholder="Añade la cantidad del Gasto: Ej. 300"
                               name="amount"
-                              value={expense.amount}
                               onChange={handleChange}
+                              value={expense.amount}
                         />
                   </div>
 
