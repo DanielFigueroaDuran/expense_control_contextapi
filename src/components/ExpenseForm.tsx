@@ -81,7 +81,7 @@ const ExpenseForm = () => {
                   <legend
                         className="uppercase text-center text-2xl font-black border-b-4 border-blue-500 py-2 rounded-sm"
                   >
-                        Nuevo Gasto
+                        {state.editingId ? 'Guardar Cambios' : 'Nuevo Gasto'}
                   </legend>
 
                   {error && <ErrorMessage>{error}</ErrorMessage>}
@@ -165,7 +165,7 @@ const ExpenseForm = () => {
                   <input
                         className="bg-blue-600 hover:bg-blue-700 cursor-pointer w-full p-2 text-white uppercase font-bold rounded-lg "
                         type="submit"
-                        value={'Registrar Gasto'}
+                        value={state.editingId ? 'Guardar Cambios' : 'Registrar Gasto'}
                   />
             </form>
       )
