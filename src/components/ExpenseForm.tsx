@@ -61,8 +61,8 @@ const ExpenseForm = () => {
             if (state.editingId) {
                   dispatch({ type: 'update-expense', payload: { expense: { id: state.editingId, ...expense } } });
             } else {
+                  dispatch({ type: 'add-expense', payload: { expense } });
             }
-            dispatch({ type: 'add-expense', payload: { expense } });
 
 
 
