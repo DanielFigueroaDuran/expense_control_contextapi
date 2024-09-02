@@ -1,6 +1,15 @@
+import { ChangeEvent } from "react";
 import { categories } from "../data/categories"
+import useBudget from "../hooks/useBudget"
 
 const FilterByCategory = () => {
+
+      const { dispatch } = useBudget();
+
+      const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
+            dispatch({ type: 'add-filter-category', payload: { id: event.target.value } })
+      }
+
       return (
             <div className="bg-white shadow-lg rounded-lg p-10">
                   <form>
@@ -9,6 +18,7 @@ const FilterByCategory = () => {
                               <select
                                     className="bg-slate-100 flex-1 p-3 rounded"
                                     id="category"
+                                    onChange={handleChange}
                               >
                                     <option value="">--Todas las Categorias</option>
                                     {categories.map((category) => (
