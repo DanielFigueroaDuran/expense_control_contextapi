@@ -8,7 +8,8 @@ export type BudgetActions =
       { type: 'add-expense', payload: { expense: DrafExpense } } |
       { type: 'remove-expense', payload: { id: Expense['id'] } } |
       { type: 'get-expense-by-id', payload: { id: Expense['id'] } } |
-      { type: 'update-expense', payload: { expense: Expense } }
+      { type: 'update-expense', payload: { expense: Expense } } |
+      { type: 'reset-app' }
 
 export type Budgetstate = {
       budget: number,
@@ -109,6 +110,15 @@ export const budgetReducer = (
                   modal: false,
                   editingId: ''
 
+            }
+      }
+
+      if (action.type === 'reset-app') {
+
+            return {
+                  ...state,
+                  budget: 0,
+                  expenses: []
             }
       }
 
