@@ -18,12 +18,14 @@ const ExpenseForm = () => {
       });
 
       const [error, setError] = useState('');
-      const { state, dispatch } = useBudget();
+      const [previusAmount, setPreviusAmount] = useState(0);
+      const { state, dispatch, remainingBudget } = useBudget();
 
       useEffect(() => {
             if (state.editingId) {
                   const editingExpense = state.expenses.filter(currenExpense => currenExpense.id === state.editingId)[0];
                   setExpense(editingExpense);
+                  setPreviusAmount(editingExpense.amount);
             }
       }, [state.editingId]);
 
@@ -56,6 +58,13 @@ const ExpenseForm = () => {
                   return
             }
 
+            //validate that I don't go over the limit
+
+            if ((expense.amount - previusAmount) > remainingBudget) {
+                  setError('Ese gasto se sale del presupuesto');
+                  return
+            }
+
             //add or update the expense
 
             if (state.editingId) {
@@ -74,6 +83,8 @@ const ExpenseForm = () => {
                   category: '',
                   date: new Date()
             });
+
+            setPreviusAmount(0);
       }
 
       return (
