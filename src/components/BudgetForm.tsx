@@ -1,17 +1,27 @@
 import { ChangeEvent, FormEvent, useMemo, useState } from "react"
 import useBudget from "../hooks/useBudget";
 
-const BudgetForm = () => {
+const BudgetForm: React.FC = () => {
 
-      const [budget, setBudget] = useState(0);
+      const [budget, setBudget] = useState<string>('');
       const { dispatch } = useBudget();
 
+      console.log(budget)
+
       const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-            setBudget(+event.target.value);
+            // setBudget(+event.target.value);
+
+            let newValue = event.target.value;
+
+            if (newValue === '' || !isNaN(Number(newValue))) {
+                  setBudget(newValue);
+            }
+
+
       }
 
       const isValid = useMemo(() => {
-            return isNaN(budget) || budget <= 0
+            return +budget <= 0
       }, [budget])
 
       const handleSubmit = (event: FormEvent<HTMLFormElement>) => {

@@ -8,7 +8,7 @@ import ErrorMessage from "./ErrorMessage";
 import useBudget from "../hooks/useBudget";
 
 
-const ExpenseForm = () => {
+const ExpenseForm: React.FC = () => {
 
       const [expense, setExpense] = useState<DrafExpense>({
             amount: 0,
@@ -40,6 +40,7 @@ const ExpenseForm = () => {
       const handleChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
             const { name, value } = event.target
             const isAmountField = ['amount'].includes(name);
+            console.log(isAmountField)
 
 
             setExpense({
@@ -125,6 +126,7 @@ const ExpenseForm = () => {
                         <input
                               className="bg-slate-100 p-2"
                               type="number"
+                              inputMode="numeric"
                               id="amount"
                               placeholder="Añade la cantidad del Gasto: Ej. 300"
                               name="amount"
