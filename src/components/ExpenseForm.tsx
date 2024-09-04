@@ -8,10 +8,10 @@ import ErrorMessage from "./ErrorMessage";
 import useBudget from "../hooks/useBudget";
 
 
-const ExpenseForm: React.FC = () => {
+const ExpenseForm = () => {
 
       const [expense, setExpense] = useState<DrafExpense>({
-            amount: 0,
+            amount: '',
             expenseName: '',
             category: '',
             date: new Date()
@@ -25,7 +25,7 @@ const ExpenseForm: React.FC = () => {
             if (state.editingId) {
                   const editingExpense = state.expenses.filter(currenExpense => currenExpense.id === state.editingId)[0];
                   setExpense(editingExpense);
-                  setPreviusAmount(editingExpense.amount);
+                  setPreviusAmount(+editingExpense.amount);
             }
       }, [state.editingId]);
 
@@ -39,14 +39,20 @@ const ExpenseForm: React.FC = () => {
 
       const handleChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
             const { name, value } = event.target
-            const isAmountField = ['amount'].includes(name);
-            console.log(isAmountField)
+            const isAmountField = +['amount'].includes(name);
 
+            const newAmount = event.target.value;
+
+            if (newAmount === '' || !isNaN(+newAmount)) {
+                  setExpense({ ...expense, amount: newAmount });
+            }
 
             setExpense({
                   ...expense,
                   [name]: isAmountField ? +value : value
             });
+
+
       }
 
       const handlesubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -61,7 +67,7 @@ const ExpenseForm: React.FC = () => {
 
             //validate that I don't go over the limit
 
-            if ((expense.amount - previusAmount) > remainingBudget) {
+            if ((+expense.amount - +previusAmount) > remainingBudget) {
                   setError('Ese gasto se sale del presupuesto');
                   return
             }
@@ -75,11 +81,10 @@ const ExpenseForm: React.FC = () => {
             }
 
 
-
             // Reset state
 
             setExpense({
-                  amount: 0,
+                  amount: '',
                   expenseName: '',
                   category: '',
                   date: new Date()

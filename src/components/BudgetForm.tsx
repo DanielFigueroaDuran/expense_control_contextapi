@@ -6,7 +6,7 @@ const BudgetForm: React.FC = () => {
       const [budget, setBudget] = useState<string>('');
       const { dispatch } = useBudget();
 
-      console.log(budget)
+      //console.log(budget)
 
       const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
             // setBudget(+event.target.value);
@@ -17,7 +17,6 @@ const BudgetForm: React.FC = () => {
                   setBudget(newValue);
             }
 
-
       }
 
       const isValid = useMemo(() => {
@@ -26,6 +25,7 @@ const BudgetForm: React.FC = () => {
 
       const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
             event.preventDefault();
+
 
             dispatch({ type: 'add-budget', payload: { budget } });
       }
