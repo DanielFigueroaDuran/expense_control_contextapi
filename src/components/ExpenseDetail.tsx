@@ -66,7 +66,7 @@ const ExpenseDetail = ({ expense }: ExpenseDetailProps) => {
                                     <p>{formatDate(expense.date!.toString())}</p>
                               </div>
                               <AmountDisplay
-                                    amount={expense.amount}
+                                    amount={+expense.amount}
                               />
                         </div>
                   </SwipeableListItem>

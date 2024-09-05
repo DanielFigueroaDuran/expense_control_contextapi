@@ -11,7 +11,7 @@ import useBudget from "../hooks/useBudget";
 const ExpenseForm = () => {
 
       const [expense, setExpense] = useState<DrafExpense>({
-            amount: '',
+            amount: +'',
             expenseName: '',
             category: '',
             date: new Date()
@@ -39,12 +39,15 @@ const ExpenseForm = () => {
 
       const handleChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
             const { name, value } = event.target
-            const isAmountField = +['amount'].includes(name);
+            const isAmountField = ['amount'].includes(name);
 
             const newAmount = event.target.value;
 
             if (newAmount === '' || !isNaN(+newAmount)) {
-                  setExpense({ ...expense, amount: newAmount });
+                  setExpense({
+                        ...expense,
+                        amount: +newAmount
+                  });
             }
 
             setExpense({
@@ -84,7 +87,7 @@ const ExpenseForm = () => {
             // Reset state
 
             setExpense({
-                  amount: '',
+                  amount: +'',
                   expenseName: '',
                   category: '',
                   date: new Date()
