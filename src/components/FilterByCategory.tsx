@@ -20,7 +20,7 @@ const FilterByCategory = () => {
                                     id="category"
                                     onChange={handleChange}
                               >
-                                    <option value="">--Todas las Categorias</option>
+                                    <option value="">--Todas las Categorias--</option>
                                     {categories.map((category) => (
                                           <option
                                                 key={category.id}
