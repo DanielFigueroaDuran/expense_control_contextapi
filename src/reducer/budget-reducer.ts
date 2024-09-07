@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Category, DrafExpense, Expense } from "../types"
 
 export type BudgetActions =
-      { type: 'add-budget', payload: { budget: string } } |
+      { type: 'add-budget', payload: { budget: number | '' } } |
       { type: 'show-modal' } |
       { type: 'close-modal' } |
       { type: 'add-expense', payload: { expense: DrafExpense } } |
@@ -13,7 +13,7 @@ export type BudgetActions =
       { type: 'add-filter-category', payload: { id: Category['id'] } }
 
 export type Budgetstate = {
-      budget: number,
+      budget: number | '',
       modal: boolean,
       expenses: Expense[],
       editingId: Expense['id'],

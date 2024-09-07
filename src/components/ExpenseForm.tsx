@@ -11,7 +11,7 @@ import useBudget from "../hooks/useBudget";
 const ExpenseForm = () => {
 
       const [expense, setExpense] = useState<DrafExpense>({
-            amount: +'',
+            amount: 0,
             expenseName: '',
             category: '',
             date: new Date()
@@ -41,20 +41,20 @@ const ExpenseForm = () => {
             const { name, value } = event.target
             const isAmountField = ['amount'].includes(name);
 
-            const newAmount = event.target.value;
+            const newAmount = value;
 
-            if (newAmount === '' || !isNaN(+newAmount)) {
+            if (newAmount === '') {
                   setExpense({
                         ...expense,
-                        amount: +newAmount
+                        amount: +''
                   });
+            } else {
+                  setExpense({
+                        ...expense,
+                        [name]: isAmountField ? +value : value
+                  });
+
             }
-
-            setExpense({
-                  ...expense,
-                  [name]: isAmountField ? +value : value
-            });
-
 
       }
 
@@ -87,7 +87,7 @@ const ExpenseForm = () => {
             // Reset state
 
             setExpense({
-                  amount: +'',
+                  amount: '',
                   expenseName: '',
                   category: '',
                   date: new Date()
@@ -134,12 +134,13 @@ const ExpenseForm = () => {
                         <input
                               className="bg-slate-100 p-2"
                               type="number"
-                              inputMode="numeric"
                               id="amount"
                               placeholder="Añade la cantidad del Gasto: Ej. 300"
                               name="amount"
                               onChange={handleChange}
                               value={expense.amount}
+                              onFocus={() => expense.amount === 0 && setExpense({ ...expense, amount: '' })}
+                              onBlur={() => expense.amount === '' && setExpense({ ...expense, amount: 0 })}
                         />
                   </div>
 

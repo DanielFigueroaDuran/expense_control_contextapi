@@ -8,7 +8,7 @@ const BudgetTracker = () => {
 
       const { state, totalExpenses, remainingBudget, dispatch } = useBudget();
 
-      const percentage = +((totalExpenses / state.budget) * 100).toFixed(2);
+      const percentage = +((totalExpenses / +state.budget) * 100).toFixed(2);
 
       //console.log(percentage)
 
@@ -38,7 +38,7 @@ const BudgetTracker = () => {
 
                         <AmountDisplay
                               label="Presupuesto"
-                              amount={state.budget}
+                              amount={+state.budget}
                         />
 
                         <AmountDisplay

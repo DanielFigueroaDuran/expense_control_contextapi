@@ -20,9 +20,9 @@ const BudgetProvider = ({ children }: BudgetProviderProps) => {
       const [state, dispatch] = useReducer(budgetReducer, initialState);
 
 
-      const totalExpenses = useMemo(() => state.expenses.reduce((total: number, expense: Expense) => expense.amount + total, 0), [state.expenses]);
+      const totalExpenses = useMemo(() => state.expenses.reduce((total: number, expense: Expense) => +expense.amount + total, 0), [state.expenses]);
 
-      const remainingBudget = state.budget - totalExpenses;
+      const remainingBudget = +state.budget - totalExpenses;
 
       return (
             <BudgetContext.Provider

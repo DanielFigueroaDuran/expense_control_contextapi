@@ -3,20 +3,20 @@ import useBudget from "../hooks/useBudget";
 
 const BudgetForm = () => {
 
-      const [budget, setBudget] = useState<string>('');
+      const [budget, setBudget] = useState<number | ''>(0);
       const { dispatch } = useBudget();
 
       //console.log(budget)
 
       const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-            // setBudget(+event.target.value);
 
             let newValue = event.target.value;
 
-            if (newValue === '' || !isNaN(Number(newValue))) {
-                  setBudget(newValue);
+            if (newValue === '') {
+                  setBudget('')
+            } else {
+                  setBudget(+newValue);
             }
-
       }
 
       const isValid = useMemo(() => {
@@ -25,8 +25,6 @@ const BudgetForm = () => {
 
       const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
             event.preventDefault();
-
-
             dispatch({ type: 'add-budget', payload: { budget } });
       }
 
@@ -47,6 +45,8 @@ const BudgetForm = () => {
                               name="budget"
                               placeholder="Define tu presupuesto"
                               value={budget}
+                              onFocus={() => budget === 0 && setBudget('')} // Remove 0 when doing Focus
+                              onBlur={() => budget === '' && setBudget(0)} // Reset to 0 if empty
                               onChange={handleChange}
                         />
                   </div>
