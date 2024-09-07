@@ -13,6 +13,7 @@ const ExpenseList = () => {
             : state.expenses;
 
       const isEmty = useMemo(() => filteredExpenses.length === 0, [filteredExpenses]);
+
       return (
             <div className="mt-10 bg-white shadow-lg rounded-lg p-10">
                   {isEmty

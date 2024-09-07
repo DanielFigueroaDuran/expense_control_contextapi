@@ -46,7 +46,7 @@ const ExpenseForm = () => {
             if (newAmount === '') {
                   setExpense({
                         ...expense,
-                        amount: +''
+                        amount: ''
                   });
             } else {
                   setExpense({

@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useMemo, useState } from "react"
 import useBudget from "../hooks/useBudget";
 
-const BudgetForm = () => {
+const BudgetForm: React.FC = () => {
 
       const [budget, setBudget] = useState<number | ''>(0);
       const { dispatch } = useBudget();
