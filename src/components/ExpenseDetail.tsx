@@ -51,23 +51,23 @@ const ExpenseDetail = ({ expense }: ExpenseDetailProps) => {
                         leadingActions={leadingActions()}
                         trailingActions={trailingActions()}
                   >
-                        <div className="flex gap-5 items-center bg-white shadow-lg p-5 w-full border-b border-gray-200 ">
-                              <div className="">
+                        <div className="bg-white shadow-lg p-5 w-full border-b border-gray-200 ">
+                              <div className="flex flex-wrap sm:text-sm sm:justify-center sm:items-center  justify-between items-center  gap-4">
                                     <img
                                           className="w-20"
                                           src={`/icono_${categoryInfo.icon}.svg`}
                                           alt="icon"
                                     />
-                              </div>
 
-                              <div className="flex-1 space-y-2">
-                                    <p className="text-sm font-bold uppercase text slate-500">{categoryInfo.name}</p>
-                                    <p>{expense.expenseName}</p>
-                                    <p>{formatDate(expense.date!.toString())}</p>
+                                    <div className="flex-1 space-y-2">
+                                          <p className="text-sm font-bold uppercase text slate-500">{categoryInfo.name}</p>
+                                          <p>{expense.expenseName}</p>
+                                          <p>{formatDate(expense.date!.toString())}</p>
+                                    </div>
+                                    <AmountDisplay
+                                          amount={+expense.amount}
+                                    />
                               </div>
-                              <AmountDisplay
-                                    amount={+expense.amount}
-                              />
                         </div>
                   </SwipeableListItem>
             </SwipeableList>
